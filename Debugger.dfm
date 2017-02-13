@@ -14,34 +14,36 @@ object TOTAL_CMD: TTOTAL_CMD
   PixelsPerInch = 96
   TextHeight = 13
   object MainSplitter: TSplitter
-    Left = 729
+    Left = 721
     Top = 0
     Height = 654
-  end
-  object FSGrid: TStringGrid
-    Left = 0
-    Top = 0
-    Width = 729
-    Height = 654
-    Align = alLeft
-    TabOrder = 0
-    ExplicitLeft = 40
-    ExplicitHeight = 505
+    ExplicitLeft = 130
+    ExplicitTop = 8
   end
   object DebugPanel: TValueListEditor
-    Left = 732
+    Left = 724
     Top = 0
-    Width = 692
+    Width = 700
     Height = 654
     Align = alClient
-    TabOrder = 1
+    TabOrder = 0
     TitleCaptions.Strings = (
       'Function'
       'Result')
-    ExplicitLeft = 734
-    ExplicitWidth = 690
     ColWidths = (
       150
-      536)
+      544)
+    RowHeights = (
+      18
+      18)
+  end
+  object FileList: TListBox
+    Left = 0
+    Top = 0
+    Width = 721
+    Height = 654
+    Align = alLeft
+    ItemHeight = 13
+    TabOrder = 1
   end
 end
