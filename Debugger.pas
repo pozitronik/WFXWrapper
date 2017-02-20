@@ -23,6 +23,7 @@ type
 	public
 		{Public declarations}
 		Procedure LoadPlugin(FileName: WideString);
+		Procedure AddFindDataToFileList(FileList: TListBox; FindData: tWIN32FINDDATA);
 
 	end;
 
@@ -37,6 +38,11 @@ implementation
 procedure LogProc(PluginNr, MsgType: integer; LogString: pWideChar); stdcall;
 begin
 	TOTAL_CMD.DebugPanel.AddItem(WFX.MsgCodeToText(MsgType) + ': ' + LogString, nil);
+end;
+
+procedure TTOTAL_CMD.AddFindDataToFileList(FileList: TListBox; FindData: tWIN32FINDDATA);
+begin
+	FileList.Items.Append(FindData.cFileName + (FindData.nFileSizeHigh * MAXDWORD + FindData.nFileSizeLow).ToString);
 end;
 
 procedure TTOTAL_CMD.FormCreate(Sender: TObject);
@@ -61,15 +67,25 @@ end;
 
 procedure TTOTAL_CMD.LoadPlugin(FileName: WideString);
 begin
-
 	LogProc(0, msgtype_details, pWideChar('Loaded file: ' + FileName));
 	self.Caption := 'Loaded: ' + FileName;
 end;
 
 procedure TTOTAL_CMD.StartItemClick(Sender: TObject);
+var
+	FindData: tWIN32FINDDATA;
+	Handle: THandle;
 begin
 	WFX:=TWFX.create(GetSettings(SettingsIniFilePath).PluginFile, nil, @LogProc);
 	WFX.FsInit(0, nil, @LogProc, nil);
+	Handle:=WFX.FindFirstW('\', FindData);
+	AddFindDataToFileList(self.FileList, FindData);
+	while WFX.FindNextW(Handle, FindData) do
+	begin
+		Application.ProcessMessages;
+		AddFindDataToFileList(self.FileList, FindData);
+	end;
+	WFX.FindClose(Handle);
 end;
 
 end.
