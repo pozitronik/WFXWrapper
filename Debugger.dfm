@@ -10,7 +10,9 @@ object TOTAL_CMD: TTOTAL_CMD
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  Menu = MainMenu
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object MainSplitter: TSplitter
@@ -20,23 +22,6 @@ object TOTAL_CMD: TTOTAL_CMD
     ExplicitLeft = 130
     ExplicitTop = 8
   end
-  object DebugPanel: TValueListEditor
-    Left = 724
-    Top = 0
-    Width = 700
-    Height = 654
-    Align = alClient
-    TabOrder = 0
-    TitleCaptions.Strings = (
-      'Function'
-      'Result')
-    ColWidths = (
-      150
-      544)
-    RowHeights = (
-      18
-      18)
-  end
   object FileList: TListBox
     Left = 0
     Top = 0
@@ -44,6 +29,35 @@ object TOTAL_CMD: TTOTAL_CMD
     Height = 654
     Align = alLeft
     ItemHeight = 13
+    TabOrder = 0
+  end
+  object DebugPanel: TListBox
+    Left = 724
+    Top = 0
+    Width = 700
+    Height = 654
+    Align = alClient
+    ItemHeight = 13
     TabOrder = 1
+  end
+  object MainMenu: TMainMenu
+    Left = 704
+    Top = 336
+    object LoadItem: TMenuItem
+      Caption = 'Load plugin'
+      OnClick = LoadItemClick
+    end
+    object StartItem: TMenuItem
+      Caption = 'Start'
+      OnClick = StartItemClick
+    end
+  end
+  object LoadPluginDialog: TOpenDialog
+    Filter = 
+      'Total Commander filesystem plugin|*.wfx|Total Commander filesyst' +
+      'em plugin (unicode)|*.uwfx|Total Commander filesystem plugin (64' +
+      '-bit)|*.wfx64'
+    Left = 736
+    Top = 336
   end
 end
