@@ -1,0 +1,8 @@
+/DEBUGGER
+/win32
+/__history
+*.dproj
+*.dproj.local
+*.identcache
+*.res
+*.stat
